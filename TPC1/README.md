@@ -1,0 +1,3 @@
+Somador On/Off
+
+Este programa lê um texto da entrada padrão e processa-o linha por linha, mantendo um somador ativo que controla quando os números devem ser somados. As palavras "On" e "Off" alternam o estado do somador e agora são preservadas na saída. Apenas números encontrados no texto são somados quando o somador está ativo e, sempre que um = aparece, o programa imprime o texto correspondente até esse ponto, seguido da soma acumulada. No final, imprime a soma total dos números encontrados enquanto o somador esteve ativo, garantindo que o texto original é mantido e a funcionalidade é corretamente implementada.
