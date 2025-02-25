@@ -1,5 +1,14 @@
+<h1>Título Principal</h1>
+<h2>Subtítulo</h2>
+
+Este é um <b>texto em negrito</b> e este é um <i>texto em itálico</i>.
 <ol>
-    <li>olá</li>
-    <li><b>diogo</b></li>
+    <li>Primeiro item</li>
+    <li>Segundo item</li>
+    <li>Terceiro item</li>
+
 
 </ol>
+<a href="https://www.google.com">Google</a>
+
+<img src="https://exemplo.com/imagem.jpg" alt="Imagem de Exemplo"/>

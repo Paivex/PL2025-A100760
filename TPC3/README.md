@@ -57,5 +57,41 @@ Para **cabeçalhos e listas numeradas**, foi usada uma abordagem específica:
 
 O script recolhe a entrada do utilizador através do terminal e gera um ficheiro `output.txt` contendo a versão HTML correspondente ao Markdown inserido.
 
+## Exemplo de Output
+
+### Entrada (Markdown):
+```markdown
+# Título Principal
+## Subtítulo
+
+Este é um **texto em negrito** e este é um *texto em itálico*.
+
+1. Primeiro item
+2. Segundo item
+3. Terceiro item
+
+[Google](https://www.google.com)
+
+![Imagem de Exemplo](https://exemplo.com/imagem.jpg)
+```
+
+### Saída (HTML gerado no `output.txt`):
+```html
+<h1>Título Principal</h1>
+<h2>Subtítulo</h2>
+
+<p>Este é um <b>texto em negrito</b> e este é um <i>texto em itálico</i>.</p>
+
+<ol>
+    <li>Primeiro item</li>
+    <li>Segundo item</li>
+    <li>Terceiro item</li>
+</ol>
+
+<a href="https://www.google.com">Google</a>
+
+<img src="https://exemplo.com/imagem.jpg" alt="Imagem de Exemplo"/>
+```
+
 
 
