@@ -1,51 +1,61 @@
-#**Conversor de Markdown para HTML**
+# Conversor de Markdown para HTML
 
-#**Requisitos**
+## Requisitos
 
-Neste TPC, o objetivo foi criar um script Python que converte um texto em formato Markdown para HTML, seguindo os requisitos:
+Este projeto consiste num script Python que converte texto em formato Markdown para HTML. O código suporta a seguinte sintaxe básica:
 
-Cabeçalhos: # Exemplo, ## Exemplo, ### Exemplo
+```markdown
+# Cabeçalhos
+## Subcabeçalhos
+### Subsubcabeçalhos
 
-Negrito: **exemplo**
+**Negrito**
+*Itálico*
 
-Itálico: *exemplo*
+1. Item de lista 1
+2. Item de lista 2
+3. Item de lista 3
 
-Listas numeradas:
+[Texto do link](https://exemplo.com)
 
-Item 1
+![Texto alternativo](caminho/para/imagem.jpg)
+```
 
-Item 2
+## Solução
 
-Item 3
+O código utiliza a biblioteca `re` para processar as marcações Markdown e convertê-las para HTML.
 
-Links: [texto](endereço)
+### Estratégia Utilizada
 
-Imagens: ![texto alternativo](caminho para a imagem)
+Para **negrito, itálico, imagens e links**, foram utilizadas expressões regulares com `re.sub`:
 
-**Solução**
+```python
+# Negrito: **texto** → <b>texto</b>
+re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', markdown)
 
-Para a implementação, foi utilizada a biblioteca re (expressões regulares) para realizar a conversão de Markdown para HTML.
+# Itálico: *texto* → <i>texto</i>
+re.sub(r'(?<!\!)\*(.*?)\*', r'<i>\1</i>', markdown)
 
-Para negrito, itálico, imagens e links, foram usadas expressões regulares com re.sub:
+# Imagens: ![alt](url) → <img src="url" alt="alt"/>
+re.sub(r'!\[(.*?)\]\((.*?)\)', r'<img src="\2" alt="\1"/>', markdown)
 
-Negrito: \*\*(.*?)\*\* → <b>texto</b>
+# Links: [texto](url) → <a href="url">texto</a>
+re.sub(r'(?<!!)\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', markdown)
+```
 
-Itálico: \*(.*?)\* → <i>texto</i>
+Para **cabeçalhos e listas numeradas**, foi usada uma abordagem específica:
 
-Imagens: !\[(.*?)\]\((.*?)\) → <img src="URL" alt="texto"/>
+- **Cabeçalhos**:
+  - Identificam-se `#`, `##` e `###` no início das linhas e substituem-se pelas tags HTML `<h1>`, `<h2>`, `<h3>`.
 
-Links: \[(.*?)\]\((.*?)\) → <a href="URL">texto</a>
+- **Listas numeradas**:
+  - Identifica-se se uma linha começa com um número seguido de um ponto (`1. `) para determinar se é um item de lista.
+  - Envolve-se a lista entre `<ol>` e `<li>`.
+  - Garante-se que a lista é fechada corretamente quando necessário.
 
-Para cabeçalhos e listas numeradas, foi adotada uma lógica diferente:
+### Detalhes Adicionais
 
-Utiliza-se re.sub para identificar #, ##, ### no início das linhas e substituí-los pelos elementos HTML.
+O script recolhe a entrada do utilizador através do terminal e gera um ficheiro `output.txt` contendo a versão HTML correspondente ao Markdown inserido.
 
-Listas numeradas:
 
-Utiliza-se re.sub para identificar itens numerados (1. item) e envolvê-los dentro de *<ol>* e *<li>*.
 
-Para garantir a correta estruturação das listas, o código verifica se a lista foi iniciada e fecha corretamente a tag *<ol>* quando necessário.
-
-**Output**
-
-O script lê o texto inserido pelo utilizador, processa-o e guarda o resultado num ficheiro output.txt.
