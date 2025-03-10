@@ -1,0 +1,38 @@
+[
+    {
+        "cod": "A23",
+        "nome": "\u00c1gua 0.5L",
+        "quant": 4,
+        "preco": 0.7
+    },
+    {
+        "cod": "B12",
+        "nome": "Coca-Cola 0.33L",
+        "quant": 5,
+        "preco": 1.2
+    },
+    {
+        "cod": "C45",
+        "nome": "Batatas Fritas",
+        "quant": 10,
+        "preco": 1.5
+    },
+    {
+        "cod": "D67",
+        "nome": "Chocolate",
+        "quant": 6,
+        "preco": 1.0
+    },
+    {
+        "cod": "E89",
+        "nome": "Caf\u00e9",
+        "quant": 15,
+        "preco": 0.8
+    },
+    {
+        "cod": "A24",
+        "nome": "PASTILHAS",
+        "quant": 9,
+        "preco": 0.5
+    }
+]
