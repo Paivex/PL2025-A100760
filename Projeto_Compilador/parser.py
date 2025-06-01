@@ -1,88 +1,7 @@
-import re
-import sys
-import ply.yacc as yacc
 from lexer import tokens, build_lexer
+import ply.yacc as yacc
+import sys, re
 
-'''
-GIC = <T, N, S, P>
-
-S - programa
-
-programa - PROGRAM ID SEMICOLON bloco DOT
-
-bloco - VAR declaracoes BEGIN instrucoes END
-      | BEGIN instrucoes END
-
-declaracoes - declaracoes declaracao
-            | declaracao
-            | ε
-
-declaracao - lista_ids COLON tipo SEMICOLON
-
-lista_ids - ID
-          | lista_ids COMMA ID
-
-tipo - INTEGER 
-     | BOOLEAN 
-     | STRING 
-     | REAL 
-     | ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo
-
-instrucoes - statement_list
-
-statement_list - statement_list SEMICOLON statement
-               | statement_list SEMICOLON
-               | statement
-
-statement - atribuicao
-          | leitura
-          | escrita
-          | if_then_else
-          | if_then
-          | while_loop
-          | bloco_instr
-
-atribuicao - ID ASSIGN expressao
-
-leitura - READLN LPAREN ID RPAREN
-
-escrita - WRITE LPAREN exp_list RPAREN
-        | WRITELN LPAREN exp_list RPAREN
-
-exp_list - expressao
-         | exp_list COMMA expressao
-
-if_then_else - IF expressao THEN statement ELSE statement
-
-if_then - IF expressao THEN statement
-
-while_loop - WHILE expressao DO statement
-
-bloco_instr - BEGIN instrucoes END
-
-expressao - expressao operador_binario expressao
-          | LPAREN expressao RPAREN
-          | ID
-          | NUMBER
-          | STRING_LITERAL
-          | TRUE
-          | FALSE
-
-operador_binario - PLUS 
-                 | MINUS 
-                 | TIMES 
-                 | DIVIDE 
-                 | DIV 
-                 | MOD 
-                 | EQUAL 
-                 | NE 
-                 | LT 
-                 | LE 
-                 | GT 
-                 | GE 
-                 | AND 
-                 | OR
-'''
 # ---------------------------------------------------
 # Precedência de operadores
 # ---------------------------------------------------
@@ -97,25 +16,6 @@ precedence = (
 # ---------------------------------------------------
 # Estruturas AST e tabelas auxiliares
 # ---------------------------------------------------
-
-# Cada nó de expressão será:
-#   ('num', inteiro)
-#   ('real', float)         ← se você quiser lidar com literais float
-#   ('id', nome_variável)
-#   ('str', texto_literal)
-#   ('bool', True/False)
-#   ('binop', operador, esquerda, direita)
-#
-# Cada nó de statement será:
-#   ('assign', var, expr)            → var := expr
-#   ('read', var)                     → a partir de READ construímos as conversões
-#   ('write', [lista_expr], newline)  → WRITE / WRITELN
-#   ('if', cond, then_stmt, else_stmt)  
-#   ('while', cond, corpo_stmt)
-#   ('block', [lista_statements])
-#
-# Programa completo:
-#   ('program', nome, bloco_stmt)
 
 codigo_meio = []          # lista de linhas (strings) do .ewvm que vamos gerar
 tabela_variaveis = {}     # dicionário: nome_variável → (tipo, índice_global)
@@ -265,6 +165,7 @@ def generate_stmt_code(stmt):
         codigo_meio.append(f"STOREG {idx}")
 
     elif tp == 'write':
+        # ('write', [expressions], newline_flag)
         lista_expr = stmt[1]
         newline    = stmt[2]
 
@@ -274,22 +175,22 @@ def generate_stmt_code(stmt):
 
             # 2) escolhe o opcode de impressão:
             if e[0] == 'num' or e[0] == 'bool':
-                codigo_meio.append("WRITEI\nWRITELN")
+                codigo_meio.append("WRITEI")
             elif e[0] == 'real':
-                codigo_meio.append("WRITEF\nWRITELN")
+                codigo_meio.append("WRITEF")
             elif e[0] == 'str':
-                codigo_meio.append("WRITES\nWRITELN")
+                codigo_meio.append("WRITES")
             elif e[0] == 'id':
                 nome_var = e[1]
                 tipo_v, _ = tabela_variaveis[nome_var]
                 if tipo_v in ('integer', 'boolean'):
-                    codigo_meio.append("WRITEI\nWRITELN")
+                    codigo_meio.append("WRITEI")
                 elif tipo_v == 'real':
-                    codigo_meio.append("WRITEF\nWRITELN")
+                    codigo_meio.append("WRITEF")
                 elif tipo_v == 'string':
-                    codigo_meio.append("WRITES\nWRITELN")
+                    codigo_meio.append("WRITES")
                 else:
-                    codigo_meio.append("WRITEI\nWRITELN")
+                    codigo_meio.append("WRITEI")
             else:
                 # Se for binop, infere tipo do resultado
                 def infer_tipo(no):
@@ -358,6 +259,56 @@ def generate_stmt_code(stmt):
         # 6) Rótulo saída
         codigo_meio.append(f"{etiqueta_saida}:")
 
+    elif tp == 'for':
+        # stmt = ('for', var, expr_inicio, expr_limite, corpo_stmt, direction)
+        var_nome     = stmt[1]
+        expr_inicio  = stmt[2]
+        expr_limite  = stmt[3]
+        corpo        = stmt[4]
+        direction    = stmt[5]  # 'to' ou 'downto'
+
+        # 1) Atribui à variável de controle o valor inicial
+        generate_expr_code(expr_inicio)
+        tipo_var, idx = tabela_variaveis[var_nome]
+        codigo_meio.append(f"STOREG {idx}")  # var := expr_inicio
+
+        # 2) Cria etiquetas para início e saída do loop
+        etiqueta_inicio = nova_etiqueta()
+        etiqueta_saida  = nova_etiqueta()
+
+        # 3) Rótulo de início
+        codigo_meio.append(f"{etiqueta_inicio}:")
+
+        # 4) Carrega a variável de controle e compara com o limite
+        #    Para 'to': empilha var e limite, usa INFEQ para i <= limite
+        #    Para 'downto': usa SUPEQ para i >= limite
+        codigo_meio.append(f"PUSHG {idx}")
+        generate_expr_code(expr_limite)
+        if direction == 'to':
+            codigo_meio.append("INFEQ")
+        else:  # 'downto'
+            codigo_meio.append("SUPEQ")
+        # Se comparação for zero, significa condição falhou → sai do loop
+        codigo_meio.append(f"JZ {etiqueta_saida}")
+
+        # 5) Gera o corpo do loop
+        generate_stmt_code(corpo)
+
+        # 6) Incrementa ou decrementa a variável de controle
+        codigo_meio.append(f"PUSHG {idx}")    # empilha var atual
+        codigo_meio.append("PUSHI 1")         # empilha constante 1
+        if direction == 'to':
+            codigo_meio.append("ADD")         # var + 1
+        else:
+            codigo_meio.append("SUB")         # var - 1
+        codigo_meio.append(f"STOREG {idx}")   # armazena de volta em var
+
+        # 7) Pula de volta para o início
+        codigo_meio.append(f"JUMP {etiqueta_inicio}")
+
+        # 8) Rótulo de saída
+        codigo_meio.append(f"{etiqueta_saida}:")
+
     elif tp == 'block':
         # ('block', [lista_de_statements])
         for s in stmt[1]:
@@ -390,6 +341,7 @@ def generate_code(ast_program):
 
     # 4) Fim com STOP:
     codigo_meio.append("STOP")
+
 
 # ---------------------------------------------------
 # Gramática (PLY) — constrói o AST
@@ -475,6 +427,7 @@ def p_statement(p):
                  | if_then_else
                  | if_then
                  | while_stmt
+                 | for_stmt
                  | bloco_instr'''
     p[0] = p[1]
 
@@ -520,6 +473,20 @@ def p_while_stmt(p):
     cond  = p[2]
     corpo = p[4]
     p[0] = ('while', cond, corpo)
+
+def p_for_stmt(p):
+    '''for_stmt : FOR ID ASSIGN expressao TO expressao DO statement
+                | FOR ID ASSIGN expressao DOWNTO expressao DO statement'''
+    """
+    Construímos um nó AST do tipo ('for', var, expr_inicial, expr_limite, corpo, direction)
+      direction = 'to' ou 'downto'
+    """
+    var_nome      = p[2]
+    expr_inicio   = p[4]
+    expr_limite   = p[6]
+    corpo_stmt    = p[8]
+    direction_key = p[5].lower()  # 'to' ou 'downto'
+    p[0] = ('for', var_nome, expr_inicio, expr_limite, corpo_stmt, direction_key)
 
 def p_bloco_instr(p):
     'bloco_instr : BEGIN instrucoes END'
@@ -581,7 +548,6 @@ def p_error(p):
     else:
         raise SyntaxError("Fim de arquivo inesperado")
 
-# Constrói o parser (gera parser.out para mostrar conflitos)
 parser = yacc.yacc(debug=True)
 
 # ---------------------------------------------------
