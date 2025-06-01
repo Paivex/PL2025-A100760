@@ -152,14 +152,14 @@ O analisador léxico e sintático reporta erros com mensagens claras e linha do 
 
 ### 4.2. Limitações Atuais
 
-- `for`, `procedure` e `function` ainda não estão implementados.
+- `procedure` e `function` ainda não estão implementados.
 - Falta verificação de tipos entre expressões e variáveis.
 - Arrays não têm geração de código.
 - Sem otimizações.
 
 ### 4.3. Melhorias Futuras
 
-- Implementar `for`, `procedure`, `function`.
+- Implementar `procedure`, `function`.
 - Verificação estática de tipos.
 - Geração de código para arrays.
 - Otimizações de código intermediário.
@@ -388,7 +388,7 @@ Através da implementação com recurso à biblioteca PLY, foi possível constru
 
 A utilização de uma árvore sintática abstrata (AST) como estrutura intermédia revelou-se eficaz para separar a análise da geração de código, contribuindo para uma organização modular e extensível do compilador. A geração de código, por sua vez, foi feita de forma dirigida pela sintaxe, com regras específicas para cada tipo de instrução e com tradução direta para os opcodes da EWVM.
 
-Apesar de algumas funcionalidades opcionais não terem sido ainda implementadas, como `for`, `function` e `procedure`, a arquitetura modular do compilador permite uma expansão futura com relativa facilidade. A deteção e tratamento de erros foram também incorporados de forma básica, permitindo a continuação da análise mesmo na presença de falhas locais.
+Apesar de algumas funcionalidades opcionais não terem sido ainda implementadas, como `function` e `procedure`, a arquitetura modular do compilador permite uma expansão futura com relativa facilidade. A deteção e tratamento de erros foram também incorporados de forma básica, permitindo a continuação da análise mesmo na presença de falhas locais.
 
 Em suma, este projeto não só evidenciou a aplicabilidade dos conceitos teóricos de compiladores, como também reforçou competências práticas de análise de linguagens, definição de gramáticas e programação estruturada em Python. O resultado final cumpre os objetivos propostos, mostrando-se funcional e alinhado com os requisitos da máquina virtual alvo.
 
