@@ -81,4 +81,3 @@ begin
     else
         writeln(num, ' não é um número primo')
 end.
-

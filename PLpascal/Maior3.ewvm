@@ -6,16 +6,19 @@ maior: 0:
 START:
 PUSHS "Introduza o primeiro número: "
 WRITES
+WRITELN
 READ
 ATOI
 STOREG 0
 PUSHS "Introduza o segundo número: "
 WRITES
+WRITELN
 READ
 ATOI
 STOREG 1
 PUSHS "Introduza o terceiro número: "
 WRITES
+WRITELN
 READ
 ATOI
 STOREG 2
@@ -50,7 +53,9 @@ L5:
 L1:
 PUSHS "O maior é: "
 WRITES
+WRITELN
 PUSHG 3
 WRITEI
+WRITELN
 WRITELN
 STOP

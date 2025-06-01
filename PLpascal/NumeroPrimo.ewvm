@@ -6,6 +6,7 @@ START:
 PUSHS "Introduza um número inteiro positivo:"
 WRITES
 WRITELN
+WRITELN
 READ
 ATOI
 STOREG 0
@@ -43,15 +44,19 @@ PUSHG 2
 JZ L4
 PUSHG 0
 WRITEI
+WRITELN
 PUSHS " é um número primo"
 WRITES
+WRITELN
 WRITELN
 JUMP L5
 L4:
 PUSHG 0
 WRITEI
+WRITELN
 PUSHS " não é um número primo"
 WRITES
+WRITELN
 WRITELN
 L5:
 STOP

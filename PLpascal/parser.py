@@ -274,22 +274,22 @@ def generate_stmt_code(stmt):
 
             # 2) escolhe o opcode de impressão:
             if e[0] == 'num' or e[0] == 'bool':
-                codigo_meio.append("WRITEI")
+                codigo_meio.append("WRITEI\nWRITELN")
             elif e[0] == 'real':
-                codigo_meio.append("WRITEF")
+                codigo_meio.append("WRITEF\nWRITELN")
             elif e[0] == 'str':
-                codigo_meio.append("WRITES")
+                codigo_meio.append("WRITES\nWRITELN")
             elif e[0] == 'id':
                 nome_var = e[1]
                 tipo_v, _ = tabela_variaveis[nome_var]
                 if tipo_v in ('integer', 'boolean'):
-                    codigo_meio.append("WRITEI")
+                    codigo_meio.append("WRITEI\nWRITELN")
                 elif tipo_v == 'real':
-                    codigo_meio.append("WRITEF")
+                    codigo_meio.append("WRITEF\nWRITELN")
                 elif tipo_v == 'string':
-                    codigo_meio.append("WRITES")
+                    codigo_meio.append("WRITES\nWRITELN")
                 else:
-                    codigo_meio.append("WRITEI")
+                    codigo_meio.append("WRITEI\nWRITELN")
             else:
                 # Se for binop, infere tipo do resultado
                 def infer_tipo(no):
