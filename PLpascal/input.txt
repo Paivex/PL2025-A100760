@@ -1,0 +1,84 @@
+#--- EXEMPLO 1 ---#
+
+program HelloWorld;
+begin
+    writeln('Ola, Mundo!');
+end.
+
+#--- EXEMPLO 2 ---#
+
+program SomaSimples;
+
+var
+    a, b, resultado: integer;
+
+begin
+    readln(a);
+    readln(b);
+    resultado := a + b;
+    writeln('Resultado: ', resultado);
+end.
+
+#--- EXEMPLO 3 ---#
+
+program VerificaPar;
+
+var
+  numero: integer;
+
+begin
+  readln(numero);
+  if numero > 0 then
+    writeln('O número é positivo');
+end.
+
+#--- EXEMPLO 4 ---#
+
+program Maior3;
+
+var
+    num1, num2, num3, maior: Integer;
+begin
+    Write('Introduza o primeiro número: ');
+    ReadLn(num1);
+
+    Write('Introduza o segundo número: ');
+    ReadLn(num2);
+
+    Write('Introduza o terceiro número: ');
+    ReadLn(num3);
+
+    if num1 > num2 then
+        if num1 > num3 then maior := num1
+        else maior := num3
+    else
+        if num2 > num3 then maior := num2
+        else maior := num3;
+
+    WriteLn('O maior é: ', maior)
+end.
+
+#--- EXEMPLO 5 ---#
+
+program NumeroPrimo;
+
+var
+    num, i: integer;
+    primo: boolean;
+begin
+    writeln('Introduza um número inteiro positivo:');
+    readln(num);
+    primo := true;
+    i := 2;
+    while (i <= (num div 2)) and primo do
+        begin
+            if (num mod i) = 0 then
+                primo := false;
+            i := i + 1;
+        end;
+    if primo then
+        writeln(num, ' é um número primo')
+    else
+        writeln(num, ' não é um número primo')
+end.
+

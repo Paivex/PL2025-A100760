@@ -1,0 +1,2812 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DOWNTO
+    FOR
+    FUNCTION
+    PROCEDURE
+    TO
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAM ID SEMICOLON bloco DOT
+Rule 2     bloco -> VAR declaracoes BEGIN instrucoes END
+Rule 3     bloco -> BEGIN instrucoes END
+Rule 4     declaracoes -> declaracoes declaracao
+Rule 5     declaracoes -> declaracao
+Rule 6     declaracoes -> empty
+Rule 7     declaracao -> lista_ids COLON tipo SEMICOLON
+Rule 8     lista_ids -> ID
+Rule 9     lista_ids -> lista_ids COMMA ID
+Rule 10    tipo -> INTEGER
+Rule 11    tipo -> BOOLEAN
+Rule 12    tipo -> STRING
+Rule 13    tipo -> REAL
+Rule 14    tipo -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo
+Rule 15    instrucoes -> statement_list
+Rule 16    statement_list -> statement_list SEMICOLON statement
+Rule 17    statement_list -> statement_list SEMICOLON
+Rule 18    statement_list -> statement
+Rule 19    statement -> atribuicao_instr_only
+Rule 20    statement -> leitura_stmt
+Rule 21    statement -> escrita_stmt
+Rule 22    statement -> if_then_else
+Rule 23    statement -> if_then
+Rule 24    statement -> while_stmt
+Rule 25    statement -> bloco_instr
+Rule 26    atribuicao_instr_only -> ID ASSIGN expressao
+Rule 27    leitura_stmt -> READLN LPAREN ID RPAREN
+Rule 28    escrita_stmt -> WRITELN LPAREN exp_list RPAREN
+Rule 29    escrita_stmt -> WRITE LPAREN exp_list RPAREN
+Rule 30    exp_list -> expressao
+Rule 31    exp_list -> exp_list COMMA expressao
+Rule 32    if_then_else -> IF expressao THEN statement ELSE statement
+Rule 33    if_then -> IF expressao THEN statement
+Rule 34    while_stmt -> WHILE expressao DO statement
+Rule 35    bloco_instr -> BEGIN instrucoes END
+Rule 36    expressao -> expressao PLUS expressao
+Rule 37    expressao -> expressao MINUS expressao
+Rule 38    expressao -> expressao TIMES expressao
+Rule 39    expressao -> expressao DIVIDE expressao
+Rule 40    expressao -> expressao DIV expressao
+Rule 41    expressao -> expressao MOD expressao
+Rule 42    expressao -> expressao EQUAL expressao
+Rule 43    expressao -> expressao NE expressao
+Rule 44    expressao -> expressao LT expressao
+Rule 45    expressao -> expressao LE expressao
+Rule 46    expressao -> expressao GT expressao
+Rule 47    expressao -> expressao GE expressao
+Rule 48    expressao -> expressao AND expressao
+Rule 49    expressao -> expressao OR expressao
+Rule 50    expressao -> LPAREN expressao RPAREN
+Rule 51    expressao -> ID
+Rule 52    expressao -> NUMBER
+Rule 53    expressao -> STRING_LITERAL
+Rule 54    expressao -> TRUE
+Rule 55    expressao -> FALSE
+Rule 56    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 48
+ARRAY                : 14
+ASSIGN               : 26
+BEGIN                : 2 3 35
+BOOLEAN              : 11
+COLON                : 7
+COMMA                : 9 31
+DIV                  : 40
+DIVIDE               : 39
+DO                   : 34
+DOT                  : 1
+DOTDOT               : 14
+DOWNTO               : 
+ELSE                 : 32
+END                  : 2 3 35
+EQUAL                : 42
+FALSE                : 55
+FOR                  : 
+FUNCTION             : 
+GE                   : 47
+GT                   : 46
+ID                   : 1 8 9 26 27 51
+IF                   : 32 33
+INTEGER              : 10
+LBRACKET             : 14
+LE                   : 45
+LPAREN               : 27 28 29 50
+LT                   : 44
+MINUS                : 37
+MOD                  : 41
+NE                   : 43
+NUMBER               : 14 14 52
+OF                   : 14
+OR                   : 49
+PLUS                 : 36
+PROCEDURE            : 
+PROGRAM              : 1
+RBRACKET             : 14
+READLN               : 27
+REAL                 : 13
+RPAREN               : 27 28 29 50
+SEMICOLON            : 1 7 16 17
+STRING               : 12
+STRING_LITERAL       : 53
+THEN                 : 32 33
+TIMES                : 38
+TO                   : 
+TRUE                 : 54
+VAR                  : 2
+WHILE                : 34
+WRITE                : 29
+WRITELN              : 28
+error                : 
+
+Nonterminals, with rules where they appear
+
+atribuicao_instr_only : 19
+bloco                : 1
+bloco_instr          : 25
+declaracao           : 4 5
+declaracoes          : 2 4
+empty                : 6
+escrita_stmt         : 21
+exp_list             : 28 29 31
+expressao            : 26 30 31 32 33 34 36 36 37 37 38 38 39 39 40 40 41 41 42 42 43 43 44 44 45 45 46 46 47 47 48 48 49 49 50
+if_then              : 23
+if_then_else         : 22
+instrucoes           : 2 3 35
+leitura_stmt         : 20
+lista_ids            : 7 9
+programa             : 0
+statement            : 16 18 32 32 33 34
+statement_list       : 15 16 17
+tipo                 : 7 14
+while_stmt           : 24
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAM ID SEMICOLON bloco DOT
+
+    PROGRAM         shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAM . ID SEMICOLON bloco DOT
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAM ID . SEMICOLON bloco DOT
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAM ID SEMICOLON . bloco DOT
+    (2) bloco -> . VAR declaracoes BEGIN instrucoes END
+    (3) bloco -> . BEGIN instrucoes END
+
+    VAR             shift and go to state 6
+    BEGIN           shift and go to state 7
+
+    bloco                          shift and go to state 5
+
+state 5
+
+    (1) programa -> PROGRAM ID SEMICOLON bloco . DOT
+
+    DOT             shift and go to state 8
+
+
+state 6
+
+    (2) bloco -> VAR . declaracoes BEGIN instrucoes END
+    (4) declaracoes -> . declaracoes declaracao
+    (5) declaracoes -> . declaracao
+    (6) declaracoes -> . empty
+    (7) declaracao -> . lista_ids COLON tipo SEMICOLON
+    (56) empty -> .
+    (8) lista_ids -> . ID
+    (9) lista_ids -> . lista_ids COMMA ID
+
+  ! shift/reduce conflict for ID resolved as shift
+    BEGIN           reduce using rule 56 (empty -> .)
+    ID              shift and go to state 13
+
+  ! ID              [ reduce using rule 56 (empty -> .) ]
+
+    declaracoes                    shift and go to state 9
+    declaracao                     shift and go to state 10
+    empty                          shift and go to state 11
+    lista_ids                      shift and go to state 12
+
+state 7
+
+    (3) bloco -> BEGIN . instrucoes END
+    (15) instrucoes -> . statement_list
+    (16) statement_list -> . statement_list SEMICOLON statement
+    (17) statement_list -> . statement_list SEMICOLON
+    (18) statement_list -> . statement
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    instrucoes                     shift and go to state 15
+    statement_list                 shift and go to state 16
+    statement                      shift and go to state 17
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 8
+
+    (1) programa -> PROGRAM ID SEMICOLON bloco DOT .
+
+    $end            reduce using rule 1 (programa -> PROGRAM ID SEMICOLON bloco DOT .)
+
+
+state 9
+
+    (2) bloco -> VAR declaracoes . BEGIN instrucoes END
+    (4) declaracoes -> declaracoes . declaracao
+    (7) declaracao -> . lista_ids COLON tipo SEMICOLON
+    (8) lista_ids -> . ID
+    (9) lista_ids -> . lista_ids COMMA ID
+
+    BEGIN           shift and go to state 31
+    ID              shift and go to state 13
+
+    declaracao                     shift and go to state 32
+    lista_ids                      shift and go to state 12
+
+state 10
+
+    (5) declaracoes -> declaracao .
+
+    BEGIN           reduce using rule 5 (declaracoes -> declaracao .)
+    ID              reduce using rule 5 (declaracoes -> declaracao .)
+
+
+state 11
+
+    (6) declaracoes -> empty .
+
+    BEGIN           reduce using rule 6 (declaracoes -> empty .)
+    ID              reduce using rule 6 (declaracoes -> empty .)
+
+
+state 12
+
+    (7) declaracao -> lista_ids . COLON tipo SEMICOLON
+    (9) lista_ids -> lista_ids . COMMA ID
+
+    COLON           shift and go to state 33
+    COMMA           shift and go to state 34
+
+
+state 13
+
+    (8) lista_ids -> ID .
+
+    COLON           reduce using rule 8 (lista_ids -> ID .)
+    COMMA           reduce using rule 8 (lista_ids -> ID .)
+
+
+state 14
+
+    (35) bloco_instr -> BEGIN . instrucoes END
+    (15) instrucoes -> . statement_list
+    (16) statement_list -> . statement_list SEMICOLON statement
+    (17) statement_list -> . statement_list SEMICOLON
+    (18) statement_list -> . statement
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    instrucoes                     shift and go to state 35
+    statement_list                 shift and go to state 16
+    statement                      shift and go to state 17
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 15
+
+    (3) bloco -> BEGIN instrucoes . END
+
+    END             shift and go to state 36
+
+
+state 16
+
+    (15) instrucoes -> statement_list .
+    (16) statement_list -> statement_list . SEMICOLON statement
+    (17) statement_list -> statement_list . SEMICOLON
+
+    END             reduce using rule 15 (instrucoes -> statement_list .)
+    SEMICOLON       shift and go to state 37
+
+
+state 17
+
+    (18) statement_list -> statement .
+
+    SEMICOLON       reduce using rule 18 (statement_list -> statement .)
+    END             reduce using rule 18 (statement_list -> statement .)
+
+
+state 18
+
+    (19) statement -> atribuicao_instr_only .
+
+    SEMICOLON       reduce using rule 19 (statement -> atribuicao_instr_only .)
+    END             reduce using rule 19 (statement -> atribuicao_instr_only .)
+    ELSE            reduce using rule 19 (statement -> atribuicao_instr_only .)
+
+
+state 19
+
+    (20) statement -> leitura_stmt .
+
+    SEMICOLON       reduce using rule 20 (statement -> leitura_stmt .)
+    END             reduce using rule 20 (statement -> leitura_stmt .)
+    ELSE            reduce using rule 20 (statement -> leitura_stmt .)
+
+
+state 20
+
+    (21) statement -> escrita_stmt .
+
+    SEMICOLON       reduce using rule 21 (statement -> escrita_stmt .)
+    END             reduce using rule 21 (statement -> escrita_stmt .)
+    ELSE            reduce using rule 21 (statement -> escrita_stmt .)
+
+
+state 21
+
+    (22) statement -> if_then_else .
+
+    SEMICOLON       reduce using rule 22 (statement -> if_then_else .)
+    END             reduce using rule 22 (statement -> if_then_else .)
+    ELSE            reduce using rule 22 (statement -> if_then_else .)
+
+
+state 22
+
+    (23) statement -> if_then .
+
+    SEMICOLON       reduce using rule 23 (statement -> if_then .)
+    END             reduce using rule 23 (statement -> if_then .)
+    ELSE            reduce using rule 23 (statement -> if_then .)
+
+
+state 23
+
+    (24) statement -> while_stmt .
+
+    SEMICOLON       reduce using rule 24 (statement -> while_stmt .)
+    END             reduce using rule 24 (statement -> while_stmt .)
+    ELSE            reduce using rule 24 (statement -> while_stmt .)
+
+
+state 24
+
+    (25) statement -> bloco_instr .
+
+    SEMICOLON       reduce using rule 25 (statement -> bloco_instr .)
+    END             reduce using rule 25 (statement -> bloco_instr .)
+    ELSE            reduce using rule 25 (statement -> bloco_instr .)
+
+
+state 25
+
+    (26) atribuicao_instr_only -> ID . ASSIGN expressao
+
+    ASSIGN          shift and go to state 38
+
+
+state 26
+
+    (27) leitura_stmt -> READLN . LPAREN ID RPAREN
+
+    LPAREN          shift and go to state 39
+
+
+state 27
+
+    (28) escrita_stmt -> WRITELN . LPAREN exp_list RPAREN
+
+    LPAREN          shift and go to state 40
+
+
+state 28
+
+    (29) escrita_stmt -> WRITE . LPAREN exp_list RPAREN
+
+    LPAREN          shift and go to state 41
+
+
+state 29
+
+    (32) if_then_else -> IF . expressao THEN statement ELSE statement
+    (33) if_then -> IF . expressao THEN statement
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 42
+
+state 30
+
+    (34) while_stmt -> WHILE . expressao DO statement
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 49
+
+state 31
+
+    (2) bloco -> VAR declaracoes BEGIN . instrucoes END
+    (15) instrucoes -> . statement_list
+    (16) statement_list -> . statement_list SEMICOLON statement
+    (17) statement_list -> . statement_list SEMICOLON
+    (18) statement_list -> . statement
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    instrucoes                     shift and go to state 50
+    statement_list                 shift and go to state 16
+    statement                      shift and go to state 17
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 32
+
+    (4) declaracoes -> declaracoes declaracao .
+
+    BEGIN           reduce using rule 4 (declaracoes -> declaracoes declaracao .)
+    ID              reduce using rule 4 (declaracoes -> declaracoes declaracao .)
+
+
+state 33
+
+    (7) declaracao -> lista_ids COLON . tipo SEMICOLON
+    (10) tipo -> . INTEGER
+    (11) tipo -> . BOOLEAN
+    (12) tipo -> . STRING
+    (13) tipo -> . REAL
+    (14) tipo -> . ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo
+
+    INTEGER         shift and go to state 52
+    BOOLEAN         shift and go to state 53
+    STRING          shift and go to state 54
+    REAL            shift and go to state 55
+    ARRAY           shift and go to state 56
+
+    tipo                           shift and go to state 51
+
+state 34
+
+    (9) lista_ids -> lista_ids COMMA . ID
+
+    ID              shift and go to state 57
+
+
+state 35
+
+    (35) bloco_instr -> BEGIN instrucoes . END
+
+    END             shift and go to state 58
+
+
+state 36
+
+    (3) bloco -> BEGIN instrucoes END .
+
+    DOT             reduce using rule 3 (bloco -> BEGIN instrucoes END .)
+
+
+state 37
+
+    (16) statement_list -> statement_list SEMICOLON . statement
+    (17) statement_list -> statement_list SEMICOLON .
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    SEMICOLON       reduce using rule 17 (statement_list -> statement_list SEMICOLON .)
+    END             reduce using rule 17 (statement_list -> statement_list SEMICOLON .)
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    statement                      shift and go to state 59
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 38
+
+    (26) atribuicao_instr_only -> ID ASSIGN . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 60
+
+state 39
+
+    (27) leitura_stmt -> READLN LPAREN . ID RPAREN
+
+    ID              shift and go to state 61
+
+
+state 40
+
+    (28) escrita_stmt -> WRITELN LPAREN . exp_list RPAREN
+    (30) exp_list -> . expressao
+    (31) exp_list -> . exp_list COMMA expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    exp_list                       shift and go to state 62
+    expressao                      shift and go to state 63
+
+state 41
+
+    (29) escrita_stmt -> WRITE LPAREN . exp_list RPAREN
+    (30) exp_list -> . expressao
+    (31) exp_list -> . exp_list COMMA expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    exp_list                       shift and go to state 64
+    expressao                      shift and go to state 63
+
+state 42
+
+    (32) if_then_else -> IF expressao . THEN statement ELSE statement
+    (33) if_then -> IF expressao . THEN statement
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            shift and go to state 65
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+    OR              shift and go to state 79
+
+
+state 43
+
+    (50) expressao -> LPAREN . expressao RPAREN
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 80
+
+state 44
+
+    (51) expressao -> ID .
+
+    THEN            reduce using rule 51 (expressao -> ID .)
+    PLUS            reduce using rule 51 (expressao -> ID .)
+    MINUS           reduce using rule 51 (expressao -> ID .)
+    TIMES           reduce using rule 51 (expressao -> ID .)
+    DIVIDE          reduce using rule 51 (expressao -> ID .)
+    DIV             reduce using rule 51 (expressao -> ID .)
+    MOD             reduce using rule 51 (expressao -> ID .)
+    EQUAL           reduce using rule 51 (expressao -> ID .)
+    NE              reduce using rule 51 (expressao -> ID .)
+    LT              reduce using rule 51 (expressao -> ID .)
+    LE              reduce using rule 51 (expressao -> ID .)
+    GT              reduce using rule 51 (expressao -> ID .)
+    GE              reduce using rule 51 (expressao -> ID .)
+    AND             reduce using rule 51 (expressao -> ID .)
+    OR              reduce using rule 51 (expressao -> ID .)
+    DO              reduce using rule 51 (expressao -> ID .)
+    SEMICOLON       reduce using rule 51 (expressao -> ID .)
+    END             reduce using rule 51 (expressao -> ID .)
+    ELSE            reduce using rule 51 (expressao -> ID .)
+    RPAREN          reduce using rule 51 (expressao -> ID .)
+    COMMA           reduce using rule 51 (expressao -> ID .)
+
+
+state 45
+
+    (52) expressao -> NUMBER .
+
+    THEN            reduce using rule 52 (expressao -> NUMBER .)
+    PLUS            reduce using rule 52 (expressao -> NUMBER .)
+    MINUS           reduce using rule 52 (expressao -> NUMBER .)
+    TIMES           reduce using rule 52 (expressao -> NUMBER .)
+    DIVIDE          reduce using rule 52 (expressao -> NUMBER .)
+    DIV             reduce using rule 52 (expressao -> NUMBER .)
+    MOD             reduce using rule 52 (expressao -> NUMBER .)
+    EQUAL           reduce using rule 52 (expressao -> NUMBER .)
+    NE              reduce using rule 52 (expressao -> NUMBER .)
+    LT              reduce using rule 52 (expressao -> NUMBER .)
+    LE              reduce using rule 52 (expressao -> NUMBER .)
+    GT              reduce using rule 52 (expressao -> NUMBER .)
+    GE              reduce using rule 52 (expressao -> NUMBER .)
+    AND             reduce using rule 52 (expressao -> NUMBER .)
+    OR              reduce using rule 52 (expressao -> NUMBER .)
+    DO              reduce using rule 52 (expressao -> NUMBER .)
+    SEMICOLON       reduce using rule 52 (expressao -> NUMBER .)
+    END             reduce using rule 52 (expressao -> NUMBER .)
+    ELSE            reduce using rule 52 (expressao -> NUMBER .)
+    RPAREN          reduce using rule 52 (expressao -> NUMBER .)
+    COMMA           reduce using rule 52 (expressao -> NUMBER .)
+
+
+state 46
+
+    (53) expressao -> STRING_LITERAL .
+
+    THEN            reduce using rule 53 (expressao -> STRING_LITERAL .)
+    PLUS            reduce using rule 53 (expressao -> STRING_LITERAL .)
+    MINUS           reduce using rule 53 (expressao -> STRING_LITERAL .)
+    TIMES           reduce using rule 53 (expressao -> STRING_LITERAL .)
+    DIVIDE          reduce using rule 53 (expressao -> STRING_LITERAL .)
+    DIV             reduce using rule 53 (expressao -> STRING_LITERAL .)
+    MOD             reduce using rule 53 (expressao -> STRING_LITERAL .)
+    EQUAL           reduce using rule 53 (expressao -> STRING_LITERAL .)
+    NE              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    LT              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    LE              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    GT              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    GE              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    AND             reduce using rule 53 (expressao -> STRING_LITERAL .)
+    OR              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    DO              reduce using rule 53 (expressao -> STRING_LITERAL .)
+    SEMICOLON       reduce using rule 53 (expressao -> STRING_LITERAL .)
+    END             reduce using rule 53 (expressao -> STRING_LITERAL .)
+    ELSE            reduce using rule 53 (expressao -> STRING_LITERAL .)
+    RPAREN          reduce using rule 53 (expressao -> STRING_LITERAL .)
+    COMMA           reduce using rule 53 (expressao -> STRING_LITERAL .)
+
+
+state 47
+
+    (54) expressao -> TRUE .
+
+    THEN            reduce using rule 54 (expressao -> TRUE .)
+    PLUS            reduce using rule 54 (expressao -> TRUE .)
+    MINUS           reduce using rule 54 (expressao -> TRUE .)
+    TIMES           reduce using rule 54 (expressao -> TRUE .)
+    DIVIDE          reduce using rule 54 (expressao -> TRUE .)
+    DIV             reduce using rule 54 (expressao -> TRUE .)
+    MOD             reduce using rule 54 (expressao -> TRUE .)
+    EQUAL           reduce using rule 54 (expressao -> TRUE .)
+    NE              reduce using rule 54 (expressao -> TRUE .)
+    LT              reduce using rule 54 (expressao -> TRUE .)
+    LE              reduce using rule 54 (expressao -> TRUE .)
+    GT              reduce using rule 54 (expressao -> TRUE .)
+    GE              reduce using rule 54 (expressao -> TRUE .)
+    AND             reduce using rule 54 (expressao -> TRUE .)
+    OR              reduce using rule 54 (expressao -> TRUE .)
+    DO              reduce using rule 54 (expressao -> TRUE .)
+    SEMICOLON       reduce using rule 54 (expressao -> TRUE .)
+    END             reduce using rule 54 (expressao -> TRUE .)
+    ELSE            reduce using rule 54 (expressao -> TRUE .)
+    RPAREN          reduce using rule 54 (expressao -> TRUE .)
+    COMMA           reduce using rule 54 (expressao -> TRUE .)
+
+
+state 48
+
+    (55) expressao -> FALSE .
+
+    THEN            reduce using rule 55 (expressao -> FALSE .)
+    PLUS            reduce using rule 55 (expressao -> FALSE .)
+    MINUS           reduce using rule 55 (expressao -> FALSE .)
+    TIMES           reduce using rule 55 (expressao -> FALSE .)
+    DIVIDE          reduce using rule 55 (expressao -> FALSE .)
+    DIV             reduce using rule 55 (expressao -> FALSE .)
+    MOD             reduce using rule 55 (expressao -> FALSE .)
+    EQUAL           reduce using rule 55 (expressao -> FALSE .)
+    NE              reduce using rule 55 (expressao -> FALSE .)
+    LT              reduce using rule 55 (expressao -> FALSE .)
+    LE              reduce using rule 55 (expressao -> FALSE .)
+    GT              reduce using rule 55 (expressao -> FALSE .)
+    GE              reduce using rule 55 (expressao -> FALSE .)
+    AND             reduce using rule 55 (expressao -> FALSE .)
+    OR              reduce using rule 55 (expressao -> FALSE .)
+    DO              reduce using rule 55 (expressao -> FALSE .)
+    SEMICOLON       reduce using rule 55 (expressao -> FALSE .)
+    END             reduce using rule 55 (expressao -> FALSE .)
+    ELSE            reduce using rule 55 (expressao -> FALSE .)
+    RPAREN          reduce using rule 55 (expressao -> FALSE .)
+    COMMA           reduce using rule 55 (expressao -> FALSE .)
+
+
+state 49
+
+    (34) while_stmt -> WHILE expressao . DO statement
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    DO              shift and go to state 81
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+    OR              shift and go to state 79
+
+
+state 50
+
+    (2) bloco -> VAR declaracoes BEGIN instrucoes . END
+
+    END             shift and go to state 82
+
+
+state 51
+
+    (7) declaracao -> lista_ids COLON tipo . SEMICOLON
+
+    SEMICOLON       shift and go to state 83
+
+
+state 52
+
+    (10) tipo -> INTEGER .
+
+    SEMICOLON       reduce using rule 10 (tipo -> INTEGER .)
+
+
+state 53
+
+    (11) tipo -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 11 (tipo -> BOOLEAN .)
+
+
+state 54
+
+    (12) tipo -> STRING .
+
+    SEMICOLON       reduce using rule 12 (tipo -> STRING .)
+
+
+state 55
+
+    (13) tipo -> REAL .
+
+    SEMICOLON       reduce using rule 13 (tipo -> REAL .)
+
+
+state 56
+
+    (14) tipo -> ARRAY . LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo
+
+    LBRACKET        shift and go to state 84
+
+
+state 57
+
+    (9) lista_ids -> lista_ids COMMA ID .
+
+    COLON           reduce using rule 9 (lista_ids -> lista_ids COMMA ID .)
+    COMMA           reduce using rule 9 (lista_ids -> lista_ids COMMA ID .)
+
+
+state 58
+
+    (35) bloco_instr -> BEGIN instrucoes END .
+
+    SEMICOLON       reduce using rule 35 (bloco_instr -> BEGIN instrucoes END .)
+    END             reduce using rule 35 (bloco_instr -> BEGIN instrucoes END .)
+    ELSE            reduce using rule 35 (bloco_instr -> BEGIN instrucoes END .)
+
+
+state 59
+
+    (16) statement_list -> statement_list SEMICOLON statement .
+
+    SEMICOLON       reduce using rule 16 (statement_list -> statement_list SEMICOLON statement .)
+    END             reduce using rule 16 (statement_list -> statement_list SEMICOLON statement .)
+
+
+state 60
+
+    (26) atribuicao_instr_only -> ID ASSIGN expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    SEMICOLON       reduce using rule 26 (atribuicao_instr_only -> ID ASSIGN expressao .)
+    END             reduce using rule 26 (atribuicao_instr_only -> ID ASSIGN expressao .)
+    ELSE            reduce using rule 26 (atribuicao_instr_only -> ID ASSIGN expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+    OR              shift and go to state 79
+
+
+state 61
+
+    (27) leitura_stmt -> READLN LPAREN ID . RPAREN
+
+    RPAREN          shift and go to state 85
+
+
+state 62
+
+    (28) escrita_stmt -> WRITELN LPAREN exp_list . RPAREN
+    (31) exp_list -> exp_list . COMMA expressao
+
+    RPAREN          shift and go to state 86
+    COMMA           shift and go to state 87
+
+
+state 63
+
+    (30) exp_list -> expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    RPAREN          reduce using rule 30 (exp_list -> expressao .)
+    COMMA           reduce using rule 30 (exp_list -> expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+    OR              shift and go to state 79
+
+
+state 64
+
+    (29) escrita_stmt -> WRITE LPAREN exp_list . RPAREN
+    (31) exp_list -> exp_list . COMMA expressao
+
+    RPAREN          shift and go to state 88
+    COMMA           shift and go to state 87
+
+
+state 65
+
+    (32) if_then_else -> IF expressao THEN . statement ELSE statement
+    (33) if_then -> IF expressao THEN . statement
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    statement                      shift and go to state 89
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 66
+
+    (36) expressao -> expressao PLUS . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 90
+
+state 67
+
+    (37) expressao -> expressao MINUS . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 91
+
+state 68
+
+    (38) expressao -> expressao TIMES . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 92
+
+state 69
+
+    (39) expressao -> expressao DIVIDE . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 93
+
+state 70
+
+    (40) expressao -> expressao DIV . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 94
+
+state 71
+
+    (41) expressao -> expressao MOD . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 95
+
+state 72
+
+    (42) expressao -> expressao EQUAL . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 96
+
+state 73
+
+    (43) expressao -> expressao NE . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 97
+
+state 74
+
+    (44) expressao -> expressao LT . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 98
+
+state 75
+
+    (45) expressao -> expressao LE . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 99
+
+state 76
+
+    (46) expressao -> expressao GT . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 100
+
+state 77
+
+    (47) expressao -> expressao GE . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 101
+
+state 78
+
+    (48) expressao -> expressao AND . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 102
+
+state 79
+
+    (49) expressao -> expressao OR . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 103
+
+state 80
+
+    (50) expressao -> LPAREN expressao . RPAREN
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    RPAREN          shift and go to state 104
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+    OR              shift and go to state 79
+
+
+state 81
+
+    (34) while_stmt -> WHILE expressao DO . statement
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    statement                      shift and go to state 105
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 82
+
+    (2) bloco -> VAR declaracoes BEGIN instrucoes END .
+
+    DOT             reduce using rule 2 (bloco -> VAR declaracoes BEGIN instrucoes END .)
+
+
+state 83
+
+    (7) declaracao -> lista_ids COLON tipo SEMICOLON .
+
+    BEGIN           reduce using rule 7 (declaracao -> lista_ids COLON tipo SEMICOLON .)
+    ID              reduce using rule 7 (declaracao -> lista_ids COLON tipo SEMICOLON .)
+
+
+state 84
+
+    (14) tipo -> ARRAY LBRACKET . NUMBER DOTDOT NUMBER RBRACKET OF tipo
+
+    NUMBER          shift and go to state 106
+
+
+state 85
+
+    (27) leitura_stmt -> READLN LPAREN ID RPAREN .
+
+    SEMICOLON       reduce using rule 27 (leitura_stmt -> READLN LPAREN ID RPAREN .)
+    END             reduce using rule 27 (leitura_stmt -> READLN LPAREN ID RPAREN .)
+    ELSE            reduce using rule 27 (leitura_stmt -> READLN LPAREN ID RPAREN .)
+
+
+state 86
+
+    (28) escrita_stmt -> WRITELN LPAREN exp_list RPAREN .
+
+    SEMICOLON       reduce using rule 28 (escrita_stmt -> WRITELN LPAREN exp_list RPAREN .)
+    END             reduce using rule 28 (escrita_stmt -> WRITELN LPAREN exp_list RPAREN .)
+    ELSE            reduce using rule 28 (escrita_stmt -> WRITELN LPAREN exp_list RPAREN .)
+
+
+state 87
+
+    (31) exp_list -> exp_list COMMA . expressao
+    (36) expressao -> . expressao PLUS expressao
+    (37) expressao -> . expressao MINUS expressao
+    (38) expressao -> . expressao TIMES expressao
+    (39) expressao -> . expressao DIVIDE expressao
+    (40) expressao -> . expressao DIV expressao
+    (41) expressao -> . expressao MOD expressao
+    (42) expressao -> . expressao EQUAL expressao
+    (43) expressao -> . expressao NE expressao
+    (44) expressao -> . expressao LT expressao
+    (45) expressao -> . expressao LE expressao
+    (46) expressao -> . expressao GT expressao
+    (47) expressao -> . expressao GE expressao
+    (48) expressao -> . expressao AND expressao
+    (49) expressao -> . expressao OR expressao
+    (50) expressao -> . LPAREN expressao RPAREN
+    (51) expressao -> . ID
+    (52) expressao -> . NUMBER
+    (53) expressao -> . STRING_LITERAL
+    (54) expressao -> . TRUE
+    (55) expressao -> . FALSE
+
+    LPAREN          shift and go to state 43
+    ID              shift and go to state 44
+    NUMBER          shift and go to state 45
+    STRING_LITERAL  shift and go to state 46
+    TRUE            shift and go to state 47
+    FALSE           shift and go to state 48
+
+    expressao                      shift and go to state 107
+
+state 88
+
+    (29) escrita_stmt -> WRITE LPAREN exp_list RPAREN .
+
+    SEMICOLON       reduce using rule 29 (escrita_stmt -> WRITE LPAREN exp_list RPAREN .)
+    END             reduce using rule 29 (escrita_stmt -> WRITE LPAREN exp_list RPAREN .)
+    ELSE            reduce using rule 29 (escrita_stmt -> WRITE LPAREN exp_list RPAREN .)
+
+
+state 89
+
+    (32) if_then_else -> IF expressao THEN statement . ELSE statement
+    (33) if_then -> IF expressao THEN statement .
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELSE            shift and go to state 108
+    SEMICOLON       reduce using rule 33 (if_then -> IF expressao THEN statement .)
+    END             reduce using rule 33 (if_then -> IF expressao THEN statement .)
+
+  ! ELSE            [ reduce using rule 33 (if_then -> IF expressao THEN statement .) ]
+
+
+state 90
+
+    (36) expressao -> expressao PLUS expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    PLUS            reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    MINUS           reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    EQUAL           reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    NE              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    LT              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    LE              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    GT              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    GE              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    AND             reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    OR              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    DO              reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    SEMICOLON       reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    END             reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    ELSE            reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    RPAREN          reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    COMMA           reduce using rule 36 (expressao -> expressao PLUS expressao .)
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! TIMES           [ reduce using rule 36 (expressao -> expressao PLUS expressao .) ]
+  ! DIVIDE          [ reduce using rule 36 (expressao -> expressao PLUS expressao .) ]
+  ! DIV             [ reduce using rule 36 (expressao -> expressao PLUS expressao .) ]
+  ! MOD             [ reduce using rule 36 (expressao -> expressao PLUS expressao .) ]
+  ! PLUS            [ shift and go to state 66 ]
+  ! MINUS           [ shift and go to state 67 ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 91
+
+    (37) expressao -> expressao MINUS expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    PLUS            reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    MINUS           reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    EQUAL           reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    NE              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    LT              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    LE              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    GT              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    GE              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    AND             reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    OR              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    DO              reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    SEMICOLON       reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    END             reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    ELSE            reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    RPAREN          reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    COMMA           reduce using rule 37 (expressao -> expressao MINUS expressao .)
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! TIMES           [ reduce using rule 37 (expressao -> expressao MINUS expressao .) ]
+  ! DIVIDE          [ reduce using rule 37 (expressao -> expressao MINUS expressao .) ]
+  ! DIV             [ reduce using rule 37 (expressao -> expressao MINUS expressao .) ]
+  ! MOD             [ reduce using rule 37 (expressao -> expressao MINUS expressao .) ]
+  ! PLUS            [ shift and go to state 66 ]
+  ! MINUS           [ shift and go to state 67 ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 92
+
+    (38) expressao -> expressao TIMES expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    PLUS            reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    MINUS           reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    TIMES           reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    DIVIDE          reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    DIV             reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    MOD             reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    EQUAL           reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    NE              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    LT              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    LE              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    GT              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    GE              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    AND             reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    OR              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    DO              reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    SEMICOLON       reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    END             reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    ELSE            reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    RPAREN          reduce using rule 38 (expressao -> expressao TIMES expressao .)
+    COMMA           reduce using rule 38 (expressao -> expressao TIMES expressao .)
+
+  ! PLUS            [ shift and go to state 66 ]
+  ! MINUS           [ shift and go to state 67 ]
+  ! TIMES           [ shift and go to state 68 ]
+  ! DIVIDE          [ shift and go to state 69 ]
+  ! DIV             [ shift and go to state 70 ]
+  ! MOD             [ shift and go to state 71 ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 93
+
+    (39) expressao -> expressao DIVIDE expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    PLUS            reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    MINUS           reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    TIMES           reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    DIVIDE          reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    DIV             reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    MOD             reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    EQUAL           reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    NE              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    LT              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    LE              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    GT              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    GE              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    AND             reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    OR              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    DO              reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    SEMICOLON       reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    END             reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    ELSE            reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    RPAREN          reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+    COMMA           reduce using rule 39 (expressao -> expressao DIVIDE expressao .)
+
+  ! PLUS            [ shift and go to state 66 ]
+  ! MINUS           [ shift and go to state 67 ]
+  ! TIMES           [ shift and go to state 68 ]
+  ! DIVIDE          [ shift and go to state 69 ]
+  ! DIV             [ shift and go to state 70 ]
+  ! MOD             [ shift and go to state 71 ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 94
+
+    (40) expressao -> expressao DIV expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 40 (expressao -> expressao DIV expressao .)
+    PLUS            reduce using rule 40 (expressao -> expressao DIV expressao .)
+    MINUS           reduce using rule 40 (expressao -> expressao DIV expressao .)
+    TIMES           reduce using rule 40 (expressao -> expressao DIV expressao .)
+    DIVIDE          reduce using rule 40 (expressao -> expressao DIV expressao .)
+    DIV             reduce using rule 40 (expressao -> expressao DIV expressao .)
+    MOD             reduce using rule 40 (expressao -> expressao DIV expressao .)
+    EQUAL           reduce using rule 40 (expressao -> expressao DIV expressao .)
+    NE              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    LT              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    LE              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    GT              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    GE              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    AND             reduce using rule 40 (expressao -> expressao DIV expressao .)
+    OR              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    DO              reduce using rule 40 (expressao -> expressao DIV expressao .)
+    SEMICOLON       reduce using rule 40 (expressao -> expressao DIV expressao .)
+    END             reduce using rule 40 (expressao -> expressao DIV expressao .)
+    ELSE            reduce using rule 40 (expressao -> expressao DIV expressao .)
+    RPAREN          reduce using rule 40 (expressao -> expressao DIV expressao .)
+    COMMA           reduce using rule 40 (expressao -> expressao DIV expressao .)
+
+  ! PLUS            [ shift and go to state 66 ]
+  ! MINUS           [ shift and go to state 67 ]
+  ! TIMES           [ shift and go to state 68 ]
+  ! DIVIDE          [ shift and go to state 69 ]
+  ! DIV             [ shift and go to state 70 ]
+  ! MOD             [ shift and go to state 71 ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 95
+
+    (41) expressao -> expressao MOD expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 41 (expressao -> expressao MOD expressao .)
+    PLUS            reduce using rule 41 (expressao -> expressao MOD expressao .)
+    MINUS           reduce using rule 41 (expressao -> expressao MOD expressao .)
+    TIMES           reduce using rule 41 (expressao -> expressao MOD expressao .)
+    DIVIDE          reduce using rule 41 (expressao -> expressao MOD expressao .)
+    DIV             reduce using rule 41 (expressao -> expressao MOD expressao .)
+    MOD             reduce using rule 41 (expressao -> expressao MOD expressao .)
+    EQUAL           reduce using rule 41 (expressao -> expressao MOD expressao .)
+    NE              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    LT              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    LE              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    GT              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    GE              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    AND             reduce using rule 41 (expressao -> expressao MOD expressao .)
+    OR              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    DO              reduce using rule 41 (expressao -> expressao MOD expressao .)
+    SEMICOLON       reduce using rule 41 (expressao -> expressao MOD expressao .)
+    END             reduce using rule 41 (expressao -> expressao MOD expressao .)
+    ELSE            reduce using rule 41 (expressao -> expressao MOD expressao .)
+    RPAREN          reduce using rule 41 (expressao -> expressao MOD expressao .)
+    COMMA           reduce using rule 41 (expressao -> expressao MOD expressao .)
+
+  ! PLUS            [ shift and go to state 66 ]
+  ! MINUS           [ shift and go to state 67 ]
+  ! TIMES           [ shift and go to state 68 ]
+  ! DIVIDE          [ shift and go to state 69 ]
+  ! DIV             [ shift and go to state 70 ]
+  ! MOD             [ shift and go to state 71 ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 96
+
+    (42) expressao -> expressao EQUAL expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    EQUAL           reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    NE              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    LT              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    LE              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    GT              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    GE              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    AND             reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    OR              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    DO              reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    SEMICOLON       reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    END             reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    ELSE            reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    RPAREN          reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    COMMA           reduce using rule 42 (expressao -> expressao EQUAL expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! PLUS            [ reduce using rule 42 (expressao -> expressao EQUAL expressao .) ]
+  ! MINUS           [ reduce using rule 42 (expressao -> expressao EQUAL expressao .) ]
+  ! TIMES           [ reduce using rule 42 (expressao -> expressao EQUAL expressao .) ]
+  ! DIVIDE          [ reduce using rule 42 (expressao -> expressao EQUAL expressao .) ]
+  ! DIV             [ reduce using rule 42 (expressao -> expressao EQUAL expressao .) ]
+  ! MOD             [ reduce using rule 42 (expressao -> expressao EQUAL expressao .) ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 97
+
+    (43) expressao -> expressao NE expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 43 (expressao -> expressao NE expressao .)
+    EQUAL           reduce using rule 43 (expressao -> expressao NE expressao .)
+    NE              reduce using rule 43 (expressao -> expressao NE expressao .)
+    LT              reduce using rule 43 (expressao -> expressao NE expressao .)
+    LE              reduce using rule 43 (expressao -> expressao NE expressao .)
+    GT              reduce using rule 43 (expressao -> expressao NE expressao .)
+    GE              reduce using rule 43 (expressao -> expressao NE expressao .)
+    AND             reduce using rule 43 (expressao -> expressao NE expressao .)
+    OR              reduce using rule 43 (expressao -> expressao NE expressao .)
+    DO              reduce using rule 43 (expressao -> expressao NE expressao .)
+    SEMICOLON       reduce using rule 43 (expressao -> expressao NE expressao .)
+    END             reduce using rule 43 (expressao -> expressao NE expressao .)
+    ELSE            reduce using rule 43 (expressao -> expressao NE expressao .)
+    RPAREN          reduce using rule 43 (expressao -> expressao NE expressao .)
+    COMMA           reduce using rule 43 (expressao -> expressao NE expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! PLUS            [ reduce using rule 43 (expressao -> expressao NE expressao .) ]
+  ! MINUS           [ reduce using rule 43 (expressao -> expressao NE expressao .) ]
+  ! TIMES           [ reduce using rule 43 (expressao -> expressao NE expressao .) ]
+  ! DIVIDE          [ reduce using rule 43 (expressao -> expressao NE expressao .) ]
+  ! DIV             [ reduce using rule 43 (expressao -> expressao NE expressao .) ]
+  ! MOD             [ reduce using rule 43 (expressao -> expressao NE expressao .) ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 98
+
+    (44) expressao -> expressao LT expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 44 (expressao -> expressao LT expressao .)
+    EQUAL           reduce using rule 44 (expressao -> expressao LT expressao .)
+    NE              reduce using rule 44 (expressao -> expressao LT expressao .)
+    LT              reduce using rule 44 (expressao -> expressao LT expressao .)
+    LE              reduce using rule 44 (expressao -> expressao LT expressao .)
+    GT              reduce using rule 44 (expressao -> expressao LT expressao .)
+    GE              reduce using rule 44 (expressao -> expressao LT expressao .)
+    AND             reduce using rule 44 (expressao -> expressao LT expressao .)
+    OR              reduce using rule 44 (expressao -> expressao LT expressao .)
+    DO              reduce using rule 44 (expressao -> expressao LT expressao .)
+    SEMICOLON       reduce using rule 44 (expressao -> expressao LT expressao .)
+    END             reduce using rule 44 (expressao -> expressao LT expressao .)
+    ELSE            reduce using rule 44 (expressao -> expressao LT expressao .)
+    RPAREN          reduce using rule 44 (expressao -> expressao LT expressao .)
+    COMMA           reduce using rule 44 (expressao -> expressao LT expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! PLUS            [ reduce using rule 44 (expressao -> expressao LT expressao .) ]
+  ! MINUS           [ reduce using rule 44 (expressao -> expressao LT expressao .) ]
+  ! TIMES           [ reduce using rule 44 (expressao -> expressao LT expressao .) ]
+  ! DIVIDE          [ reduce using rule 44 (expressao -> expressao LT expressao .) ]
+  ! DIV             [ reduce using rule 44 (expressao -> expressao LT expressao .) ]
+  ! MOD             [ reduce using rule 44 (expressao -> expressao LT expressao .) ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 99
+
+    (45) expressao -> expressao LE expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 45 (expressao -> expressao LE expressao .)
+    EQUAL           reduce using rule 45 (expressao -> expressao LE expressao .)
+    NE              reduce using rule 45 (expressao -> expressao LE expressao .)
+    LT              reduce using rule 45 (expressao -> expressao LE expressao .)
+    LE              reduce using rule 45 (expressao -> expressao LE expressao .)
+    GT              reduce using rule 45 (expressao -> expressao LE expressao .)
+    GE              reduce using rule 45 (expressao -> expressao LE expressao .)
+    AND             reduce using rule 45 (expressao -> expressao LE expressao .)
+    OR              reduce using rule 45 (expressao -> expressao LE expressao .)
+    DO              reduce using rule 45 (expressao -> expressao LE expressao .)
+    SEMICOLON       reduce using rule 45 (expressao -> expressao LE expressao .)
+    END             reduce using rule 45 (expressao -> expressao LE expressao .)
+    ELSE            reduce using rule 45 (expressao -> expressao LE expressao .)
+    RPAREN          reduce using rule 45 (expressao -> expressao LE expressao .)
+    COMMA           reduce using rule 45 (expressao -> expressao LE expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! PLUS            [ reduce using rule 45 (expressao -> expressao LE expressao .) ]
+  ! MINUS           [ reduce using rule 45 (expressao -> expressao LE expressao .) ]
+  ! TIMES           [ reduce using rule 45 (expressao -> expressao LE expressao .) ]
+  ! DIVIDE          [ reduce using rule 45 (expressao -> expressao LE expressao .) ]
+  ! DIV             [ reduce using rule 45 (expressao -> expressao LE expressao .) ]
+  ! MOD             [ reduce using rule 45 (expressao -> expressao LE expressao .) ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 100
+
+    (46) expressao -> expressao GT expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 46 (expressao -> expressao GT expressao .)
+    EQUAL           reduce using rule 46 (expressao -> expressao GT expressao .)
+    NE              reduce using rule 46 (expressao -> expressao GT expressao .)
+    LT              reduce using rule 46 (expressao -> expressao GT expressao .)
+    LE              reduce using rule 46 (expressao -> expressao GT expressao .)
+    GT              reduce using rule 46 (expressao -> expressao GT expressao .)
+    GE              reduce using rule 46 (expressao -> expressao GT expressao .)
+    AND             reduce using rule 46 (expressao -> expressao GT expressao .)
+    OR              reduce using rule 46 (expressao -> expressao GT expressao .)
+    DO              reduce using rule 46 (expressao -> expressao GT expressao .)
+    SEMICOLON       reduce using rule 46 (expressao -> expressao GT expressao .)
+    END             reduce using rule 46 (expressao -> expressao GT expressao .)
+    ELSE            reduce using rule 46 (expressao -> expressao GT expressao .)
+    RPAREN          reduce using rule 46 (expressao -> expressao GT expressao .)
+    COMMA           reduce using rule 46 (expressao -> expressao GT expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! PLUS            [ reduce using rule 46 (expressao -> expressao GT expressao .) ]
+  ! MINUS           [ reduce using rule 46 (expressao -> expressao GT expressao .) ]
+  ! TIMES           [ reduce using rule 46 (expressao -> expressao GT expressao .) ]
+  ! DIVIDE          [ reduce using rule 46 (expressao -> expressao GT expressao .) ]
+  ! DIV             [ reduce using rule 46 (expressao -> expressao GT expressao .) ]
+  ! MOD             [ reduce using rule 46 (expressao -> expressao GT expressao .) ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 101
+
+    (47) expressao -> expressao GE expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 47 (expressao -> expressao GE expressao .)
+    EQUAL           reduce using rule 47 (expressao -> expressao GE expressao .)
+    NE              reduce using rule 47 (expressao -> expressao GE expressao .)
+    LT              reduce using rule 47 (expressao -> expressao GE expressao .)
+    LE              reduce using rule 47 (expressao -> expressao GE expressao .)
+    GT              reduce using rule 47 (expressao -> expressao GE expressao .)
+    GE              reduce using rule 47 (expressao -> expressao GE expressao .)
+    AND             reduce using rule 47 (expressao -> expressao GE expressao .)
+    OR              reduce using rule 47 (expressao -> expressao GE expressao .)
+    DO              reduce using rule 47 (expressao -> expressao GE expressao .)
+    SEMICOLON       reduce using rule 47 (expressao -> expressao GE expressao .)
+    END             reduce using rule 47 (expressao -> expressao GE expressao .)
+    ELSE            reduce using rule 47 (expressao -> expressao GE expressao .)
+    RPAREN          reduce using rule 47 (expressao -> expressao GE expressao .)
+    COMMA           reduce using rule 47 (expressao -> expressao GE expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+
+  ! PLUS            [ reduce using rule 47 (expressao -> expressao GE expressao .) ]
+  ! MINUS           [ reduce using rule 47 (expressao -> expressao GE expressao .) ]
+  ! TIMES           [ reduce using rule 47 (expressao -> expressao GE expressao .) ]
+  ! DIVIDE          [ reduce using rule 47 (expressao -> expressao GE expressao .) ]
+  ! DIV             [ reduce using rule 47 (expressao -> expressao GE expressao .) ]
+  ! MOD             [ reduce using rule 47 (expressao -> expressao GE expressao .) ]
+  ! EQUAL           [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LT              [ shift and go to state 74 ]
+  ! LE              [ shift and go to state 75 ]
+  ! GT              [ shift and go to state 76 ]
+  ! GE              [ shift and go to state 77 ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 102
+
+    (48) expressao -> expressao AND expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 48 (expressao -> expressao AND expressao .)
+    AND             reduce using rule 48 (expressao -> expressao AND expressao .)
+    OR              reduce using rule 48 (expressao -> expressao AND expressao .)
+    DO              reduce using rule 48 (expressao -> expressao AND expressao .)
+    SEMICOLON       reduce using rule 48 (expressao -> expressao AND expressao .)
+    END             reduce using rule 48 (expressao -> expressao AND expressao .)
+    ELSE            reduce using rule 48 (expressao -> expressao AND expressao .)
+    RPAREN          reduce using rule 48 (expressao -> expressao AND expressao .)
+    COMMA           reduce using rule 48 (expressao -> expressao AND expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+
+  ! PLUS            [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! MINUS           [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! TIMES           [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! DIVIDE          [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! DIV             [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! MOD             [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! EQUAL           [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! NE              [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! LT              [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! LE              [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! GT              [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! GE              [ reduce using rule 48 (expressao -> expressao AND expressao .) ]
+  ! AND             [ shift and go to state 78 ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 103
+
+    (49) expressao -> expressao OR expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    THEN            reduce using rule 49 (expressao -> expressao OR expressao .)
+    OR              reduce using rule 49 (expressao -> expressao OR expressao .)
+    DO              reduce using rule 49 (expressao -> expressao OR expressao .)
+    SEMICOLON       reduce using rule 49 (expressao -> expressao OR expressao .)
+    END             reduce using rule 49 (expressao -> expressao OR expressao .)
+    ELSE            reduce using rule 49 (expressao -> expressao OR expressao .)
+    RPAREN          reduce using rule 49 (expressao -> expressao OR expressao .)
+    COMMA           reduce using rule 49 (expressao -> expressao OR expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+
+  ! PLUS            [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! MINUS           [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! TIMES           [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! DIVIDE          [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! DIV             [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! MOD             [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! EQUAL           [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! NE              [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! LT              [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! LE              [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! GT              [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! GE              [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! AND             [ reduce using rule 49 (expressao -> expressao OR expressao .) ]
+  ! OR              [ shift and go to state 79 ]
+
+
+state 104
+
+    (50) expressao -> LPAREN expressao RPAREN .
+
+    THEN            reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    PLUS            reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    MINUS           reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    TIMES           reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    DIVIDE          reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    DIV             reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    MOD             reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    EQUAL           reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    NE              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    LT              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    LE              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    GT              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    GE              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    AND             reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    OR              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    DO              reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    SEMICOLON       reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    END             reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    ELSE            reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    RPAREN          reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+    COMMA           reduce using rule 50 (expressao -> LPAREN expressao RPAREN .)
+
+
+state 105
+
+    (34) while_stmt -> WHILE expressao DO statement .
+
+    SEMICOLON       reduce using rule 34 (while_stmt -> WHILE expressao DO statement .)
+    END             reduce using rule 34 (while_stmt -> WHILE expressao DO statement .)
+    ELSE            reduce using rule 34 (while_stmt -> WHILE expressao DO statement .)
+
+
+state 106
+
+    (14) tipo -> ARRAY LBRACKET NUMBER . DOTDOT NUMBER RBRACKET OF tipo
+
+    DOTDOT          shift and go to state 109
+
+
+state 107
+
+    (31) exp_list -> exp_list COMMA expressao .
+    (36) expressao -> expressao . PLUS expressao
+    (37) expressao -> expressao . MINUS expressao
+    (38) expressao -> expressao . TIMES expressao
+    (39) expressao -> expressao . DIVIDE expressao
+    (40) expressao -> expressao . DIV expressao
+    (41) expressao -> expressao . MOD expressao
+    (42) expressao -> expressao . EQUAL expressao
+    (43) expressao -> expressao . NE expressao
+    (44) expressao -> expressao . LT expressao
+    (45) expressao -> expressao . LE expressao
+    (46) expressao -> expressao . GT expressao
+    (47) expressao -> expressao . GE expressao
+    (48) expressao -> expressao . AND expressao
+    (49) expressao -> expressao . OR expressao
+
+    RPAREN          reduce using rule 31 (exp_list -> exp_list COMMA expressao .)
+    COMMA           reduce using rule 31 (exp_list -> exp_list COMMA expressao .)
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    DIV             shift and go to state 70
+    MOD             shift and go to state 71
+    EQUAL           shift and go to state 72
+    NE              shift and go to state 73
+    LT              shift and go to state 74
+    LE              shift and go to state 75
+    GT              shift and go to state 76
+    GE              shift and go to state 77
+    AND             shift and go to state 78
+    OR              shift and go to state 79
+
+
+state 108
+
+    (32) if_then_else -> IF expressao THEN statement ELSE . statement
+    (19) statement -> . atribuicao_instr_only
+    (20) statement -> . leitura_stmt
+    (21) statement -> . escrita_stmt
+    (22) statement -> . if_then_else
+    (23) statement -> . if_then
+    (24) statement -> . while_stmt
+    (25) statement -> . bloco_instr
+    (26) atribuicao_instr_only -> . ID ASSIGN expressao
+    (27) leitura_stmt -> . READLN LPAREN ID RPAREN
+    (28) escrita_stmt -> . WRITELN LPAREN exp_list RPAREN
+    (29) escrita_stmt -> . WRITE LPAREN exp_list RPAREN
+    (32) if_then_else -> . IF expressao THEN statement ELSE statement
+    (33) if_then -> . IF expressao THEN statement
+    (34) while_stmt -> . WHILE expressao DO statement
+    (35) bloco_instr -> . BEGIN instrucoes END
+
+    ID              shift and go to state 25
+    READLN          shift and go to state 26
+    WRITELN         shift and go to state 27
+    WRITE           shift and go to state 28
+    IF              shift and go to state 29
+    WHILE           shift and go to state 30
+    BEGIN           shift and go to state 14
+
+    statement                      shift and go to state 110
+    atribuicao_instr_only          shift and go to state 18
+    leitura_stmt                   shift and go to state 19
+    escrita_stmt                   shift and go to state 20
+    if_then_else                   shift and go to state 21
+    if_then                        shift and go to state 22
+    while_stmt                     shift and go to state 23
+    bloco_instr                    shift and go to state 24
+
+state 109
+
+    (14) tipo -> ARRAY LBRACKET NUMBER DOTDOT . NUMBER RBRACKET OF tipo
+
+    NUMBER          shift and go to state 111
+
+
+state 110
+
+    (32) if_then_else -> IF expressao THEN statement ELSE statement .
+
+    SEMICOLON       reduce using rule 32 (if_then_else -> IF expressao THEN statement ELSE statement .)
+    END             reduce using rule 32 (if_then_else -> IF expressao THEN statement ELSE statement .)
+    ELSE            reduce using rule 32 (if_then_else -> IF expressao THEN statement ELSE statement .)
+
+
+state 111
+
+    (14) tipo -> ARRAY LBRACKET NUMBER DOTDOT NUMBER . RBRACKET OF tipo
+
+    RBRACKET        shift and go to state 112
+
+
+state 112
+
+    (14) tipo -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET . OF tipo
+
+    OF              shift and go to state 113
+
+
+state 113
+
+    (14) tipo -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF . tipo
+    (10) tipo -> . INTEGER
+    (11) tipo -> . BOOLEAN
+    (12) tipo -> . STRING
+    (13) tipo -> . REAL
+    (14) tipo -> . ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo
+
+    INTEGER         shift and go to state 52
+    BOOLEAN         shift and go to state 53
+    STRING          shift and go to state 54
+    REAL            shift and go to state 55
+    ARRAY           shift and go to state 56
+
+    tipo                           shift and go to state 114
+
+state 114
+
+    (14) tipo -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo .
+
+    SEMICOLON       reduce using rule 14 (tipo -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF tipo .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 6 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 89 resolved as shift

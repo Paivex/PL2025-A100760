@@ -1,0 +1,17 @@
+numero: 0:
+
+START:
+READ
+ATOI
+STOREG 0
+PUSHG 0
+PUSHI 0
+SUP
+JZ L0
+PUSHS "O número é positivo"
+WRITES
+WRITELN
+JUMP L1
+L0:
+L1:
+STOP
